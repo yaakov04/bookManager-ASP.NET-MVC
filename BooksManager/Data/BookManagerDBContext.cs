@@ -18,7 +18,7 @@ namespace BooksManager.Data
         /*
          Migraciones
         - agregar una migracion << add-migration NameOfMigration >>
-
+        - ejecutar la migracion << updadte-database >>
 
          */
     }

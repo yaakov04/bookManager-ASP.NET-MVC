@@ -19,5 +19,9 @@
 
         public Category Category { get; set; }
         public int CategoryId { get; set; }
+
+
+        public DateTime Created { get; set; } = DateTime.Now;
+
     }
 }
