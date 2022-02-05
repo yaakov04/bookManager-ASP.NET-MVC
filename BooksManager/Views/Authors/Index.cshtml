@@ -6,7 +6,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12 p-0">
+        <div class="col-8 p-0">
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Todos</h3>
@@ -38,9 +38,9 @@
                                     </td>
                                    
                                     <td>
-                                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                        <a class="btn btn-primary mr-2" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a> 
+                                        <a class="btn btn-info mr-2" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info-circle"></i></a> 
+                                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             }
