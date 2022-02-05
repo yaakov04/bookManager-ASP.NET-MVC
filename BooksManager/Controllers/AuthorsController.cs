@@ -56,7 +56,7 @@ namespace BooksManager.Controllers
             {
                 _context.Add(author);
                 _context.SaveChanges();
-                TempData["success"] = Success("fue creado");
+                TempData["success"] = Success("fue agregado");
                 return RedirectToAction(nameof(Index));
             }
             return View(author);

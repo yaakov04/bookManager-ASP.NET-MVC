@@ -1,39 +1,44 @@
 ﻿@model BooksManager.Models.Publisher
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Editorial";
 }
 
-<h1>Create</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6 p-0">
 
-<h4>Publisher</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+<div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Agregar Editorial</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form asp-action="Create">
+                <div class="card-body">
+
+                  <div class="form-group">
+                    <label  asp-for="Name"></label>
+                    <input asp-for="Name" type="text" class="form-control">
+                  </div>
+
+                  <div class="form-group">
+                    <label  asp-for="Country"></label>
+                    <input asp-for="Country" type="text" class="form-control">
+                  </div>
+
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+              </form>
             </div>
-            <div class="form-group">
-                <label asp-for="Country" class="control-label"></label>
-                <input asp-for="Country" class="form-control" />
-                <span asp-validation-for="Country" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+            <!-- /.card -->
+
+        </div>
     </div>
+    <!-- /.row -->
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+<!-- /.container-fluid -->
