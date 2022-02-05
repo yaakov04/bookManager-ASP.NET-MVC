@@ -22,24 +22,7 @@ namespace BooksManager.Controllers
             return View(categories);
         }
 
-        // GET: Categories/Details
-        public IActionResult Details(int? id)
-        {
-            if(id == null || id == 0)
-            {
-                return NotFound();
-            }
-
-            Category category = _context.categories.Find(id);
-            
-            if(category == null)
-            {
-                return NotFound();
-            }
-
-            return View(category);  
-
-        }
+       
 
         // GET: Categories/Create
         public IActionResult Create()

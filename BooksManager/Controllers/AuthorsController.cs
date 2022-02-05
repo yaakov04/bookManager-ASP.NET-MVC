@@ -22,24 +22,7 @@ namespace BooksManager.Controllers
             return View(authors);
         }
 
-        // GET: Authors/Details
-        public IActionResult Details(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-
-            Author author = _context.author.Find(id);
-
-            if (author == null)
-            {
-                return NotFound();
-            }
-
-            return View(author);
-
-        }
+       
 
         // GET: Authors/Create
         public IActionResult Create()
