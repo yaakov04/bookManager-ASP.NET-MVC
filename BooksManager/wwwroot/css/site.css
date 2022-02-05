@@ -21,16 +21,19 @@ td i.fa-edit, td i.fa-info-circle, td i.fa-trash-alt{
   font-size: 1.063rem;
 }
 
-.small-table .row .col-md-6:first-of-type{
-  -webkit-flex: 0 0 66.666667%;
-  -ms-flex: 0 0 66.666667%;
-  flex: 0 0 66.666667%;
-  max-width: 66.666667%;
-}
-
-.small-table .row .col-md-6:last-of-type{
-  -webkit-flex: 0 0 33.333333%;
-    -ms-flex: 0 0 33.333333%;
-    flex: 0 0 33.333333%;
-    max-width: 33.333333%;
+@media (min-width: 992px)
+{
+  .small-table .row .col-md-6:first-of-type{
+    -webkit-flex: 0 0 66.666667%;
+    -ms-flex: 0 0 66.666667%;
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+  }
+  
+  .small-table .row .col-md-6:last-of-type{
+    -webkit-flex: 0 0 33.333333%;
+      -ms-flex: 0 0 33.333333%;
+      flex: 0 0 33.333333%;
+      max-width: 33.333333%;
+  }
 }
