@@ -100,36 +100,37 @@ namespace BooksManager.Controllers
             return View();
         }
 
-
-        // GET: Authors/Delete
-        public IActionResult Delete(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-
-            Author author = _context.author.Find(id);
-
-            if (author == null)
-            {
-                return NotFound();
-            }
-
-            return View(author);
-
-        }
+ 
 
         // POST: Authors/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
+            if (id == null || id == 0)
+            {
+                return Json(new {
+                    result = "Error",
+                    message = "Hubo un error"
+                });
+            }
+
             Author author = _context.author.Find(id);
+
+            if (author == null)
+            {
+                return Json(new {
+                    result = "Error",
+                    message = "Hubo un error"
+                });
+            }
+            
             _context.author.Remove(author);
             _context.SaveChanges();
-            TempData["success"] = Success("se elimino");
-            return RedirectToAction(nameof(Index));
+            return Json(new{
+                result = "ok",
+                message =  Success("fue eliminado")
+            });
         }
 
 
