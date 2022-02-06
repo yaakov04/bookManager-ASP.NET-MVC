@@ -100,36 +100,35 @@ namespace BooksManager.Controllers
             return View();
         }
 
-
-        // GET: Publishers/Delete
-        public IActionResult Delete(int? id)
+        // POST: Publishers/Delete
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
         {
             if (id == null || id == 0)
             {
-                return NotFound();
+                return Json(new {
+                    result = "Error",
+                    message = failed("eliminar")
+                });
             }
 
             Publisher publisher = _context.publisher.Find(id);
 
             if (publisher == null)
             {
-                return NotFound();
+                return Json(new {
+                    result = "Error",
+                    message = failed("eliminar")
+                });
             }
-
-            return View(publisher);
-
-        }
-
-        // POST: Publishers/Delete
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            Publisher publisher = _context.publisher.Find(id);
+            
             _context.publisher.Remove(publisher);
             _context.SaveChanges();
-            TempData["success"] = Success("se elimino");
-            return RedirectToAction(nameof(Index));
+            return Json(new{
+                result = "ok",
+                message =  Success("fue eliminado")
+            });
         }
 
 
@@ -141,6 +140,11 @@ namespace BooksManager.Controllers
         private string Success(string action)
         {
             return Notification.Success("La editorial", action);
+        }
+
+        private string failed(string action)
+        {
+            return Notification.Failed("la editorial", action);
         }
     }
 }

@@ -111,7 +111,7 @@ namespace BooksManager.Controllers
             {
                 return Json(new {
                     result = "Error",
-                    message = "Hubo un error"
+                    message = failed("eliminar")
                 });
             }
 
@@ -121,7 +121,7 @@ namespace BooksManager.Controllers
             {
                 return Json(new {
                     result = "Error",
-                    message = "Hubo un error"
+                    message = failed("eliminar")
                 });
             }
             
@@ -142,6 +142,11 @@ namespace BooksManager.Controllers
         private string Success(string action)
         {
             return Notification.Success("El autor", action);
+        }
+
+        private string failed(string action)
+        {
+            return Notification.Failed("el autor", action);
         }
     }
 }

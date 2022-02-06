@@ -100,36 +100,35 @@ namespace BooksManager.Controllers
             return View();
         }
 
-
-        // GET: Categories/Delete
-        public IActionResult Delete(int? id)
-        {
-            if(id== null || id == 0)
-            {
-                return NotFound();
-            }
-
-            Category category = _context.categories.Find(id);
-
-            if(category == null)
-            {
-                return NotFound();
-            }
-
-            return View(category);
-
-        }
-
         // POST: Categories/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
+             if (id == null || id == 0)
+            {
+                return Json(new {
+                    result = "Error",
+                    message = failed("eliminar")
+                });
+            }
+
             Category category = _context.categories.Find(id);
+
+            if (category == null)
+            {
+                return Json(new {
+                    result = "Error",
+                    message = failed("eliminar")
+                });
+            }
+            
             _context.categories.Remove(category);
             _context.SaveChanges();
-            TempData["success"] = Success("se elimino");
-            return RedirectToAction(nameof(Index));
+            return Json(new{
+                result = "ok",
+                message =  Success("fue eliminada")
+            });
         }
 
 
@@ -143,7 +142,10 @@ namespace BooksManager.Controllers
             return Notification.Success("La categoría", action);
         }
 
-        
+        private string failed(string action)
+        {
+            return Notification.Failed("la categoría", action);
+        }
 
 
     }
