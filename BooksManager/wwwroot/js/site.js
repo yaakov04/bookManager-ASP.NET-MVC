@@ -88,12 +88,18 @@ function deleteElement(este) {
 
 function updateRow(modal, btn){
   let newValues = {
-    name: modal.find('input')[0].value,
-    lastName: modal.find('input')[1].value,
-  };
-  let row = btn.parentElement.parentElement.parentElement;
-  row.children[0].innerHTML = newValues.name;
-  row.children[1].innerHTML = newValues.lastName;
+        name: modal.find('input')[0].value,
+        lastName: modal.find('input')[1].value,
+    };
+
+    let row = btn.parentElement.parentElement.parentElement;
+    row.children[0].innerHTML = newValues.name;
+    row.children[1].innerHTML = newValues.lastName;
+
+    let inputs = $(btn.parentElement).find('input');
+    inputs[0].value = newValues.name;
+    inputs[1].value = newValues.lastName;
+    
 }
 
 function editElement(este, btn){
