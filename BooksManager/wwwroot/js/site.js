@@ -88,34 +88,40 @@ function deleteElement(este) {
 
 function updateRow(modal, btn){
   const modalInput = {
-    Name:  modal.find('input[name="Name"]')[0] || null,
-    LastName: modal.find('input[name="LastName"]')[0] || null,
+      Name:  modal.find('input[name="Name"]')[0] || null,
+      LastName: modal.find('input[name="LastName"]')[0] || null,
+      Country: modal.find('input[name="Country"]')[0] || null,
   };
  
 
   const newValues = {
-        name: modalInput.Name ? modalInput.Name.value : null ,
-        lastName: modalInput.LastName ? modalInput.LastName.value : null,
+      name: modalInput.Name ? modalInput.Name.value : null ,
+      lastName: modalInput.LastName ? modalInput.LastName.value : null,
+      country: modalInput.Country ? modalInput.Country.value : null,
     };
 
     const row = btn.parentElement.parentElement.parentElement;
 
     const td = {
-      name: $(row).find('td.name')[0] || null,
-      lastname: $(row).find('td.lastname')[0] || null,
+        name: $(row).find('td.name')[0] || null,
+        lastname: $(row).find('td.lastname')[0] || null,
+        country: $(row).find('td.country')[0] || null,
     };
 
     if(td.name){td.name.innerHTML = newValues.name}
-    if(td.lastname){td.lastname.innerHTML = newValues.lastName}
+    if (td.lastname) { td.lastname.innerHTML = newValues.lastName }
+    if (td.country) { td.country.innerHTML = newValues.country }
 
     const form = btn.parentElement;
     const inputs ={
-      Name: $(form).find('input[name="Name"]') || null,
-      LastName: $(form).find('input[name="LastName"]') || null,
+        Name: $(form).find('input[name="Name"]') || null,
+        LastName: $(form).find('input[name="LastName"]') || null,
+        Country: $(form).find('input[name="Country"]') || null,
     };
 
     if(inputs.Name){inputs.Name.value = newValues.name}
-    if(inputs.LastName){inputs.LastName.value = newValues.lastName}
+    if (inputs.LastName) { inputs.LastName.value = newValues.lastName }
+    if (inputs.Country) { inputs.Country.value = newValues.country }
     
 }
 

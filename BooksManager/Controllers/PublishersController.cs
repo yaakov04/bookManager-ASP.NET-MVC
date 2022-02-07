@@ -45,33 +45,35 @@ namespace BooksManager.Controllers
             return View(publisher);
         }
 
-        // GET: Publishers/Edit
-        public IActionResult Edit(int? id)
+        //PUT: Publishers/Edit
+        [HttpPut]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Publisher publisher)
         {
+
             if (id == null || id == 0)
             {
                 return NotFound();
             }
 
-            Publisher publisher = _context.publisher.Find(id);
 
-            if (publisher == null)
+
+            if (!PublisherExist(id))
             {
-                return NotFound();
+                return Json(new
+                {
+                    result = "Error",
+                    message = "No existe el autor",
+                });
             }
 
-            return View(publisher);
-
-        }
-
-        //POST: Publishers/Edit
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Publisher publisher)
-        {
             if (id != publisher.Id)
             {
-                return NotFound();
+                return Json(new
+                {
+                    result = "Error",
+                    message = failed("actualizar")
+                });
             }
 
             if (ModelState.IsValid)
@@ -93,11 +95,18 @@ namespace BooksManager.Controllers
                     }
                 }
 
-                TempData["success"] = Success("fue editada");
-                return RedirectToAction(nameof(Index));
+                return Json(new
+                {
+                    result = "ok",
+                    message = Success("fue actualizado")
+                });
             }
 
-            return View();
+            return Json(new
+            {
+                result = "Error",
+                message = failed("actualizar")
+            });
         }
 
         // POST: Publishers/Delete

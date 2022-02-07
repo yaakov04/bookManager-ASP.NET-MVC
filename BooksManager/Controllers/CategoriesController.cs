@@ -45,7 +45,7 @@ namespace BooksManager.Controllers
             return View(category);
         }
 
-        //PUT: Authors/Edit
+        //PUT: Categories/Edit
         [HttpPut]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Category category)
@@ -63,7 +63,7 @@ namespace BooksManager.Controllers
                 return Json(new
                 {
                     result = "Error",
-                    message = "No existe el autor",
+                    message = "No existe la categoría",
                 });
             }
 
@@ -98,7 +98,7 @@ namespace BooksManager.Controllers
                 return Json(new
                 {
                     result = "ok",
-                    message = Success("fue actualizado")
+                    message = Success("fue actualizada")
                 });
             }
 
