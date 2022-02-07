@@ -14,6 +14,7 @@ namespace BooksManager.Data
         public DbSet<Author> author { get; set; }
         public DbSet<Category> categories { get; set; }
         public DbSet<Publisher> publisher { get; set; }
+        public DbSet<BookQuery> BookQuery { get; set; }
 
         /*
          Migraciones
