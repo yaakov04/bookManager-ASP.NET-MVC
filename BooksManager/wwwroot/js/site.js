@@ -29,9 +29,9 @@ function ajaxRequest(btn=null){
 
 
 $('.init-form-edit').click(function(){
-  let container = this.parentElement;
+  const container = this.parentElement;
 
-  let card = $(container).find('.card').clone();
+  const card = $(container).find('.card').clone();
 
   card.removeClass('d-none');
   card.css('box-shadow', '0 0 0');
@@ -44,9 +44,9 @@ $('.init-form-edit').click(function(){
 
 
 function deleteElement(este) {
-    let form = $(este);
-    let id = este.getAttribute('data-id');
-    let url = `${este.action}/${id}`;
+    const form = $(este);
+    const id = este.getAttribute('data-id');
+    const url = `${este.action}/${id}`;
 
     Swal.fire({
       title: '¿Quieres eliminar este registro?',
@@ -58,7 +58,7 @@ function deleteElement(este) {
       confirmButtonText: '!Si, Eliminalo!'
     }).then((result) => {
       if (result.isConfirmed) {
-        let row = este.parentElement.parentElement;
+        const row = este.parentElement.parentElement;
         $.ajax(url, {
           method: 'POST',
           data: form.serialize(),
@@ -87,25 +87,42 @@ function deleteElement(este) {
 };
 
 function updateRow(modal, btn){
-  let newValues = {
-        name: modal.find('input')[0].value,
-        lastName: modal.find('input')[1].value,
+  const modalInput = {
+    Name:  modal.find('input[name="Name"]')[0] || null,
+    LastName: modal.find('input[name="LastName"]')[0] || null,
+  };
+ 
+
+  const newValues = {
+        name: modalInput.Name ? modalInput.Name.value : null ,
+        lastName: modalInput.LastName ? modalInput.LastName.value : null,
     };
 
-    let row = btn.parentElement.parentElement.parentElement;
-    row.children[0].innerHTML = newValues.name;
-    row.children[1].innerHTML = newValues.lastName;
+    const row = btn.parentElement.parentElement.parentElement;
 
-    let inputs = $(btn.parentElement).find('input');
-    inputs[0].value = newValues.name;
-    inputs[1].value = newValues.lastName;
+    const td = {
+      name: $(row).find('td.name')[0] || null,
+      lastname: $(row).find('td.lastname')[0] || null,
+    };
+
+    if(td.name){td.name.innerHTML = newValues.name}
+    if(td.lastname){td.lastname.innerHTML = newValues.lastName}
+
+    const form = btn.parentElement;
+    const inputs ={
+      Name: $(form).find('input[name="Name"]') || null,
+      LastName: $(form).find('input[name="LastName"]') || null,
+    };
+
+    if(inputs.Name){inputs.Name.value = newValues.name}
+    if(inputs.LastName){inputs.LastName.value = newValues.lastName}
     
 }
 
 function editElement(este, btn){
-    let form = $(este);
-    let id = este.getAttribute('data-id');
-    let url = `${este.action}/${id}`;
+    const form = $(este);
+    const id = este.getAttribute('data-id');
+    const url = `${este.action}/${id}`;
 
     $.ajax(url, {
       method: 'PUT',

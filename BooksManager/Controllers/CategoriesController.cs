@@ -45,33 +45,35 @@ namespace BooksManager.Controllers
             return View(category);
         }
 
-        // GET: Categories/Edit
-        public IActionResult Edit(int? id)
+        //PUT: Authors/Edit
+        [HttpPut]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Category category)
         {
+
             if (id == null || id == 0)
             {
                 return NotFound();
             }
 
-            Category category = _context.categories.Find(id);
 
-            if (category == null)
+
+            if (!CategoryExist(id))
             {
-                return NotFound();
+                return Json(new
+                {
+                    result = "Error",
+                    message = "No existe el autor",
+                });
             }
 
-            return View(category);
-
-        }
-
-        //POST: Categories/Edit
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Category category)
-        {
             if (id != category.Id)
             {
-                return NotFound();
+                return Json(new
+                {
+                    result = "Error",
+                    message = failed("actualizar")
+                });
             }
 
             if (ModelState.IsValid)
@@ -93,12 +95,20 @@ namespace BooksManager.Controllers
                     }
                 }
 
-                TempData["success"] = Success("fue editada");
-                return RedirectToAction(nameof(Index));
+                return Json(new
+                {
+                    result = "ok",
+                    message = Success("fue actualizado")
+                });
             }
 
-            return View();
+            return Json(new
+            {
+                result = "Error",
+                message = failed("actualizar")
+            });
         }
+
 
         // POST: Categories/Delete
         [HttpPost, ActionName("Delete")]

@@ -30,10 +30,10 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>
+                                    <td class="name">
                                         @Html.DisplayFor(modelItem => item.Name)
                                     </td>
-                                    <td>
+                                    <td class="lastname">
                                         @Html.DisplayFor(modelItem => item.LastName)
                                     </td>
 
@@ -101,17 +101,7 @@
 </div>
 <!-- /.container-fluid -->
 
-<div class="modal fade" id="modal-edit">
-    <div class="modal-dialog modal-lg">
-        <div id="modal-content-edit" class="modal-content">
-            <div class="">Contenido</div>
-            
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-    <!-- /.modal -->
+<partial name="_modalEdit" />
 
     @section Scripts {
     @{await Html.RenderPartialAsync("_DataTables");}
