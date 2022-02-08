@@ -157,5 +157,19 @@ namespace BooksManager.StoredProcedure
             return rdr.RecordsAffected;
             conn.Close();
         }
+
+        public int delete (int id)
+        {
+            SqlConnection conn = (SqlConnection)_context.Database.GetDbConnection();
+            SqlCommand cmd = conn.CreateCommand();
+
+            conn.Open();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = "spDeleteBook";
+            cmd.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
+            SqlDataReader rdr = cmd.ExecuteReader();
+            return rdr.RecordsAffected;
+            conn.Close();
+        }
     }
 }

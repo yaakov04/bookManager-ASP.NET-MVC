@@ -86,6 +86,32 @@ namespace BooksManager.Controllers
         }
 
 
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            Book book = spBook.getBook(id);
+            
+            if(book == null)
+            {
+                return NotFound();
+            }
+
+            return View(book);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            if (Convert.ToBoolean(spBook.delete(id)))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return NotFound();
+        }
 
 
         private List<SelectListItem> GetCategories()
