@@ -33,7 +33,29 @@
                     </a>
                 </li>
 
-                
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Libros
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-controller="Books" asp-action="Index" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Todos los Libros</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Books" asp-action="Create" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Agregar Libro</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
                 <li class="nav-item">
                     <a href="#" class="nav-link">

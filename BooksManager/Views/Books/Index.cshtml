@@ -1,59 +1,100 @@
 ﻿@model IEnumerable<BooksManager.Models.BookQuery>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Libros";
 }
 
-<h1>Index</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12  p-0">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Todos</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="dataTable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.title)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.year)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.author)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.publisher)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.category)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.year)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.author)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.publisher)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.category)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                                    <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                                </td>
+                            </tr>
+                            }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.year)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.author)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.publisher)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.category)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.year)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.author)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.publisher)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.category)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
-            </td>
-        </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.title)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.year)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.author)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.publisher)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.category)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container-fluid -->
+
+<partial name="_modalEdit" />
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_DataTables");}
 }
-    </tbody>
-</table>
