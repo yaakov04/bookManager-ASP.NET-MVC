@@ -1,6 +1,7 @@
 ﻿using BooksManager.Data;
 using BooksManager.Models;
 using BooksManager.StoredProcedure;
+using BooksManager.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -86,31 +87,45 @@ namespace BooksManager.Controllers
         }
 
 
-        public IActionResult Delete(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            Book book = spBook.getBook(id);
-            
-            if(book == null)
-            {
-                return NotFound();
-            }
-
-            return View(book);
-        }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
+            if (id == null || id == 0)
+            {
+                return Json(new
+                {
+                    result = "Error",
+                    message = failed("eliminar")
+                });
+            }
+
+            Book book = spBook.getBook(id);
+
+            if (book == null)
+            {
+                return Json(new
+                {
+                    result = "Error",
+                    message = failed("eliminar")
+                });
+            }
+
             if (Convert.ToBoolean(spBook.delete(id)))
             {
-                return RedirectToAction(nameof(Index));
+                return Json(new
+                {
+                    result = "ok",
+                    message = Success("fue eliminado")
+                });
             }
-            return NotFound();
+
+            return Json(new
+            {
+                result = "Error",
+                message = failed("eliminar")
+            });
         }
 
 
@@ -162,6 +177,16 @@ namespace BooksManager.Controllers
             return listAuthors;
         }
 
-       
+        private string Success(string action)
+        {
+            return Notification.Success("El libro", action);
+        }
+
+        private string failed(string action)
+        {
+            return Notification.Failed("el libro", action);
+        }
+
+
     }
 }
