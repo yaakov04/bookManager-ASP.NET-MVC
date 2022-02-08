@@ -23,7 +23,6 @@ namespace BooksManager.StoredProcedure
             conn.Open();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.CommandText = "spGetAllBooks";
-            cmd.ExecuteNonQuery();
             SqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
@@ -37,13 +36,22 @@ namespace BooksManager.StoredProcedure
                     category = rdr["category"].ToString()
                 });
             }
+
+            if(rdr.HasRows)
+            {
+                return books;
+            }
             conn.Close();
 
-            return books;
+            return null;
         }
 
-        public BookQuery getById(int id)
+        public BookQuery getById(int? id)
         {
+            if(id == null)
+            {
+                return null;
+            }
             List<BookQuery> books = new List<BookQuery>();
 
             SqlConnection conn = (SqlConnection)_context.Database.GetDbConnection();
@@ -52,18 +60,18 @@ namespace BooksManager.StoredProcedure
             conn.Open();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.CommandText = "spGetBookById";
-            cmd.ExecuteNonQuery();
             SqlDataReader rdr = cmd.ExecuteReader();
-            BookQuery tmpBook = new BookQuery();
             while (rdr.Read())
             {
-                tmpBook.id = (int)rdr["id"];
-                tmpBook.title = rdr["title"].ToString();
-                tmpBook.year = (int)rdr["year"];
-                tmpBook.author = rdr["author"].ToString();
-                tmpBook.publisher = rdr["publisher"].ToString();
-                tmpBook.category = rdr["category"].ToString();
-                books.Add(tmpBook);
+                books.Add(new BookQuery
+                {
+                    id = (int)rdr["id"],
+                    title = rdr["title"].ToString(),
+                    year = (int)rdr["year"],
+                    author = rdr["author"].ToString(),
+                    publisher = rdr["publisher"].ToString(),
+                    category = rdr["category"].ToString()
+                });
             }
             conn.Close();
 
@@ -75,7 +83,44 @@ namespace BooksManager.StoredProcedure
             return null;
         }
 
-        public void create(Book book)
+        public Book getBook(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            List<Book> books = new List<Book>();
+            SqlConnection conn = (SqlConnection)_context.Database.GetDbConnection();
+            SqlCommand cmd = conn.CreateCommand();
+
+            conn.Open();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = "spGetBook";
+            cmd.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
+            SqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                books.Add(new Book
+                {
+                    Id = (int)rdr["Id"],
+                    Title = rdr["Title"].ToString(),
+                    PublishedYear = (int)rdr["PublishedYear"],
+                    AuthorId = (int) rdr["AuthorId"],
+                    PublisherId = (int)rdr["PublisherId"],
+                    CategoryId = (int)rdr["CategoryId"]
+                });
+            }
+            conn.Close();
+
+            if (books.Count == 1)
+            {
+                return books[0];
+            }
+
+            return null;
+        }
+
+        public int create(Book book)
         {
             SqlConnection conn = (SqlConnection)_context.Database.GetDbConnection();
             SqlCommand cmd = conn.CreateCommand();
@@ -89,7 +134,27 @@ namespace BooksManager.StoredProcedure
             cmd.Parameters.Add("@publisher", System.Data.SqlDbType.Int).Value = book.PublisherId;
             cmd.Parameters.Add("@category", System.Data.SqlDbType.Int).Value = book.CategoryId;
             cmd.Parameters.Add("@datetime", System.Data.SqlDbType.DateTime).Value = book.Created;
-            cmd.ExecuteNonQuery();
+            SqlDataReader rdr = cmd.ExecuteReader();
+            return rdr.RecordsAffected;
+            conn.Close();
+        }
+
+        public int update(Book book)
+        {
+            SqlConnection conn = (SqlConnection)_context.Database.GetDbConnection();
+            SqlCommand cmd = conn.CreateCommand();
+
+            conn.Open();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = "spUpdateBook";
+            cmd.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = book.Id;
+            cmd.Parameters.Add("@title", System.Data.SqlDbType.VarChar, 50).Value = book.Title;
+            cmd.Parameters.Add("@autor", System.Data.SqlDbType.Int).Value = book.AuthorId;
+            cmd.Parameters.Add("@year", System.Data.SqlDbType.Int).Value = book.PublishedYear;
+            cmd.Parameters.Add("@publisher", System.Data.SqlDbType.Int).Value = book.PublisherId;
+            cmd.Parameters.Add("@category", System.Data.SqlDbType.Int).Value = book.CategoryId;
+            SqlDataReader rdr = cmd.ExecuteReader();
+            return rdr.RecordsAffected;
             conn.Close();
         }
     }

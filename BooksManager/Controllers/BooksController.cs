@@ -19,7 +19,13 @@ namespace BooksManager.Controllers
         public IActionResult Index()
         {
             IEnumerable<BookQuery> books = spBook.getAll();
-            return View(books);
+
+            if(books != null && books.Any())
+            {
+                return View(books);
+            }
+
+            return NotFound();
         }
 
         public IActionResult Create()
@@ -29,6 +35,58 @@ namespace BooksManager.Controllers
             ViewBag.CategoryId = GetCategories();
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Book book)
+        {
+            if (ModelState.IsValid)
+            {
+                //
+                if(Convert.ToBoolean(spBook.create(book)))
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            return View(book);
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            Book book = spBook.getBook(id);
+
+            if(book == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.AuthorId = GetAuthors();
+            ViewBag.PublisherId = GetPublishers();
+            ViewBag.CategoryId = GetCategories();
+            return View(book);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id,Book book)
+        {
+            if (ModelState.IsValid)
+            {
+                //
+                if (Convert.ToBoolean(spBook.update(book)))
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            return View(book);
+        }
+
+
+
 
         private List<SelectListItem> GetCategories()
         {
@@ -78,17 +136,6 @@ namespace BooksManager.Controllers
             return listAuthors;
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(Book book)
-        {
-            if(ModelState.IsValid)
-            {
-                //
-                spBook.create(book);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(book);
-        }
+       
     }
 }
