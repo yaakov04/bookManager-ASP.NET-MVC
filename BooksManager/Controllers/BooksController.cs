@@ -62,38 +62,59 @@ namespace BooksManager.Controllers
             return View(book);
         }
 
-        public IActionResult Edit(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            Book book = spBook.getBook(id);
 
-            if(book == null)
-            {
-                return NotFound();
-            }
 
-            ViewBag.AuthorId = GetAuthors();
-            ViewBag.PublisherId = GetPublishers();
-            ViewBag.CategoryId = GetCategories();
-            return View(book);
-        }
-
-        [HttpPost]
+        [HttpPut]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id,Book book)
         {
+            if (id == null || id == 0)
+            {
+                return Json(new
+                {
+                    result = "Error",
+                    message = "No existe el autor",
+                });
+            }
+
+            Book oldBook = spBook.getBook(id);
+
+            if (oldBook == null)
+            {
+                return Json(new
+                {
+                    result = "Error",
+                    message = failed("eliminar")
+                });
+            }
+
+            if(id != book.Id)
+            {
+                return Json(new
+                {
+                    result = "Error",
+                    message = failed("actualizar")
+                });
+            }
+
             if (ModelState.IsValid)
             {
                 //
                 if (Convert.ToBoolean(spBook.update(book)))
                 {
-                    return RedirectToAction(nameof(Index));
+                    return Json(new
+                    {
+                        result = "ok",
+                        message = Success("fue actualizado")
+                    });
                 }
             }
-            return View(book);
+
+            return Json(new
+            {
+                result = "Error",
+                message = failed("actualizar")
+            });
         }
 
 
