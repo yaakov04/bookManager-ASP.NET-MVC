@@ -49,9 +49,9 @@ namespace BooksManager.StoredProcedure
             return null;
         }
 
-        public BookQuery getById(int? id)
+        public BookQuery getById(int? idBook)
         {
-            if(id == null)
+            if(idBook == null || idBook == 0)
             {
                 return null;
             }
@@ -63,6 +63,7 @@ namespace BooksManager.StoredProcedure
             conn.Open();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.CommandText = "spGetBookById";
+            cmd.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = idBook;
             SqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {

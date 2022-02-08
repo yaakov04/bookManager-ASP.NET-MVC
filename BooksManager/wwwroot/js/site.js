@@ -131,7 +131,21 @@ function updateRow(modal, btn){
     if (td.title) { td.title.innerHTML = newValues.title }
     if (td.year) { td.year.innerHTML = newValues.year }
 
-    if (td.author) { td.author.innerHTML = newValues.author.innerText }
+
+    
+    
+
+    if (td.author) {
+        const id = $(btn.parentElement).find('form')[0].getAttribute('data-id');
+        //td.author.innerHTML = newValues.author.innerText;
+        $.ajax(`${window.location.href}/GetAuthorNameOfABook/${id}`, {
+            method: "GET",
+            success: function (response) {
+                console.log(response)
+                td.author.innerHTML = response.result === 'ok' ? response.data : '';
+            }
+        });
+    }
     if (td.publisher) { td.publisher.innerHTML = newValues.publisher.innerText }
     if (td.category) { td.category.innerHTML = newValues.category.innerText }
 
@@ -178,7 +192,6 @@ function updateRow(modal, btn){
         $(inputs.CategoryId).find(`option[value = ${newValues.category.value}]`).attr('selected', 'selected');
     }
 
-    console.log(inputs.AuthorId);
     
 }
 

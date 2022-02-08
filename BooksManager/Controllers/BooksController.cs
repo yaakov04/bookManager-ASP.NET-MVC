@@ -53,7 +53,6 @@ namespace BooksManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                //
                 if(Convert.ToBoolean(spBook.create(book)))
                 {
                     return RedirectToAction(nameof(Index));
@@ -99,7 +98,6 @@ namespace BooksManager.Controllers
 
             if (ModelState.IsValid)
             {
-                //
                 if (Convert.ToBoolean(spBook.update(book)))
                 {
                     return Json(new
@@ -159,6 +157,36 @@ namespace BooksManager.Controllers
             });
         }
 
+
+        public IActionResult GetAuthorNameOfABook(int id)
+        {
+            if (id == null || id == 0)
+            {
+                return Json(new
+                {
+                    result = "Error",
+                    message = "No se pudo obtener el autor"
+                });
+            }
+
+            BookQuery book = spBook.getById(id);
+
+            if(book == null)
+            {
+                return Json(new
+                {
+                    result = "Error",
+                    message = "No se pudo obtener el autor"
+                });
+            }
+
+            return Json(new
+            {
+                result = "ok",
+                data = book.author,
+                message = "Consulta correcta"
+            });
+        }
 
         private List<SelectListItem> GetCategories()
         {
