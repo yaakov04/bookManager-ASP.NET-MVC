@@ -32,8 +32,11 @@ namespace BooksManager.StoredProcedure
                     title = rdr["title"].ToString(),   
                     year = (int)rdr["year"],
                     author = rdr["author"].ToString(),
+                    authorId = (int)rdr["authorId"],
                     publisher = rdr["publisher"].ToString(),
-                    category = rdr["category"].ToString()
+                    publisherId = (int)rdr["publisherId"],
+                    category = rdr["category"].ToString(),
+                    categoryId = (int) rdr["categoryId"]
                 });
             }
 
@@ -69,8 +72,11 @@ namespace BooksManager.StoredProcedure
                     title = rdr["title"].ToString(),
                     year = (int)rdr["year"],
                     author = rdr["author"].ToString(),
+                    authorId = (int)rdr["authorId"],
                     publisher = rdr["publisher"].ToString(),
-                    category = rdr["category"].ToString()
+                    publisherId = (int)rdr["publisherId"],
+                    category = rdr["category"].ToString(),
+                    categoryId = (int)rdr["categoryId"]
                 });
             }
             conn.Close();

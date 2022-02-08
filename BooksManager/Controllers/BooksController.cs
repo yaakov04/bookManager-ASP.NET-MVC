@@ -11,18 +11,28 @@ namespace BooksManager.Controllers
     {
         private readonly BookManagerDBContext _context;
         private spBook spBook;
+        private List<SelectListItem> _Autores;
+        private List<SelectListItem> _Publishers;
+        private List<SelectListItem> _Categories;
 
         public BooksController(BookManagerDBContext context)
         {
             _context = context;
             spBook = new spBook(_context);
+            _Autores = GetAuthors();
+            _Publishers = GetPublishers();
+            _Categories = GetCategories();
         }
+        
         public IActionResult Index()
         {
             IEnumerable<BookQuery> books = spBook.getAll();
 
             if(books != null && books.Any())
             {
+                ViewBag.AuthorId = _Autores;
+                ViewBag.PublisherId = _Publishers;
+                ViewBag.CategoryId = _Categories;
                 return View(books);
             }
 

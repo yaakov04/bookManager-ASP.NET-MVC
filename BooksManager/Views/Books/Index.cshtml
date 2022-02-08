@@ -55,7 +55,94 @@
                                 </td>
                                 <td>
                                     <a asp-action="Edit" asp-route-id="@item.id">Edit</a> 
+                                    <div class="d-inline">
+                                            <button type="button" class="btn btn-primary mr-2 init-form-edit" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-edit"></i></button>
+                                            <div class="card card-primary d-none">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Editar Libro</h3>
+                                                </div>
+                                                <!-- /.card-header -->
+                                                <!-- form start -->
+                                                <form asp-action="Edit" data-action="Edit" data-id="@item.id">
+                                                    <div class="card-body">
 
+                                                        <div class="form-group">
+                                                            <label class="control-label">Title</label>
+                                                            <input class="form-control" type="text" data-val="true" data-val-required="The Title field is required." name="Title" value="@item.title" />
+                                                            <span class="text-danger field-validation-valid" data-valmsg-for="Title" data-valmsg-replace="true"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label">PublishedYear</label>
+                                                            <input class="form-control" type="number" data-val="true" data-val-required="The PublishedYear field is required." name="PublishedYear" value="@item.year" />
+                                                            <span class="text-danger field-validation-valid" data-valmsg-for="PublishedYear" data-valmsg-replace="true"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label">AuthorId</label>
+                                                            <select class="form-control" data-val="true" data-val-required="The AuthorId field is required." name="AuthorId">
+
+                                                                @foreach (var autor in ViewBag.AuthorId)
+                                                                {
+                                                                    @if (autor.Value == item.authorId.ToString())
+                                                                    {
+                                                                        <option selected="selected" value="@autor.Value">@autor.Text</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value="@autor.Value">@autor.Text</option>
+                                                                    }
+                                                                }
+                                                            </select>
+                                                            <span class="text-danger field-validation-valid" data-valmsg-for="AuthorId" data-valmsg-replace="true"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label">PublisherId</label>
+                                                            <select class="form-control" data-val="true" data-val-required="The PublisherId field is required." name="PublisherId">
+                                                                @foreach (var publisher in ViewBag.PublisherId)
+                                                                {
+                                                                    @if (publisher.Value == item.publisherId.ToString())
+                                                                    {
+                                                                        <option selected="selected" value="@publisher.Value">@publisher.Text</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value="@publisher.Value">@publisher.Text</option>
+                                                                    }
+                                                                }
+                                                            </select>
+                                                            <span class="text-danger field-validation-valid" data-valmsg-for="PublisherId" data-valmsg-replace="true"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label" >CategoryId</label>
+                                                            <select class="form-control" data-val="true" data-val-required="The CategoryId field is required."  name="CategoryId">
+                                                                @foreach (var category in ViewBag.CategoryId)
+                                                                {
+                                                                    @if (category.Value == item.categoryId.ToString())
+                                                                    {
+                                                                        <option selected="selected" value="@category.Value">@category.Text</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value="@category.Value">@category.Text</option>
+                                                                    }
+                                                                }
+                                                            </select>
+                                                            <span class="text-danger field-validation-valid" data-valmsg-for="CategoryId" data-valmsg-replace="true"></span>
+                                                        </div>
+
+                                                    </div>
+                                                        <!-- /.card-body -->
+
+                                                    <div class="card-footer">
+                                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <!-- /.card -->
+                                        </div>
                                     <a asp-action="Details" asp-route-id="@item.id">Details</a> 
                                     <form class="d-inline" asp-action="Delete" data-action="Delete" data-id="@item.id">
                                         <button class="btn btn-danger" type="submit">
