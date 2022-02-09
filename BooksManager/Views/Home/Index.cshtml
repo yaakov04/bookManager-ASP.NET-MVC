@@ -2,7 +2,67 @@
     ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Small boxes (Stat box) -->
+<div class="row">
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>@ViewBag.BooksCount</h3>
+
+                <p>Libros</p>
+            </div>
+            <div class="icon">
+                <i class=" fas fa-book"></i>
+            </div>
+            <a asp-controller="Books" asp-action="Index" class="small-box-footer">Todos los libros <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3>@ViewBag.AuthorsCount</h3>
+
+                <p>Autores</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <a asp-controller="Authors" asp-action="Index" class="small-box-footer">Todos los autores <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3>@ViewBag.CategoriesCount</h3>
+
+                <p>Categorías</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-certificate"></i>
+            </div>
+            <a asp-controller="Categories" asp-action="Index" class="small-box-footer">Todas las categorías <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-danger">
+            <div class="inner">
+                <h3>@ViewBag.PublishersCount</h3>
+
+                <p>Editoriales</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-user-edit"></i>
+            </div>
+            <a asp-controller="Publishers" asp-action="Index" class="small-box-footer">Todas las editoriales <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
 </div>
+<!-- /.row -->

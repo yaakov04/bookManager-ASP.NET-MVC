@@ -1,4 +1,5 @@
-﻿using BooksManager.Models;
+﻿using BooksManager.Data;
+using BooksManager.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,22 +7,23 @@ namespace BooksManager.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly BookManagerDBContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(BookManagerDBContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
+            ViewBag.BooksCount = _context.books.Count();
+            ViewBag.AuthorsCount = _context.author.Count();
+            ViewBag.CategoriesCount = _context.categories.Count();
+            ViewBag.PublishersCount = _context.publisher.Count();
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
