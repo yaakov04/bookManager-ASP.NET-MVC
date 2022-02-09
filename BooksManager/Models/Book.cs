@@ -8,11 +8,11 @@ namespace BooksManager.Models
         public int Id { get; set; }
 
         [DisplayName("Título")]
-        [Required(ErrorMessage ="El campo Título no puede ir vacio")]
+        [Required(ErrorMessage ="El campo Título no puede ir vacío")]
         public string Title { get; set; }
 
         [DisplayName("Año de publicación")]
-        [Required(ErrorMessage = "El campo Año de publicacion no puede ir vacio")]
+        [Required(ErrorMessage = "El campo Año de publicacion no puede ir vacío")]
         public int? PublishedYear { get; set; }
 
         public Author Author { get; set; }

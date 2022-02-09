@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace BooksManager.Models
 {
@@ -7,10 +8,12 @@ namespace BooksManager.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [DisplayName("Nombre del autor")]
+        [Required(ErrorMessage = "El campo Nombre no puede ir vacío")]
         public string Name { get; set; }
 
-        [Required]
+        [DisplayName("Apellido del Autor")]
+        [Required(ErrorMessage = "El campo Apellido no puede ir vacio")]
         public string LastName { get; set; }
 
         public List<Book> Books { get; set; }

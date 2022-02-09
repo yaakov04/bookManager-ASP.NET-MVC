@@ -52,6 +52,12 @@ namespace BooksManager.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Book book)
         {
+            /*
+             if(book.AuthorId == 0)
+            {
+                ModelState.AddModelError("authorid", "Seleccione un Autor valido")
+            }
+             */
 
             if (ModelState.IsValid)
             {
