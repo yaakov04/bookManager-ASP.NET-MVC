@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace BooksManager.Models
 {
@@ -6,25 +7,30 @@ namespace BooksManager.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [DisplayName("Título")]
+        [Required(ErrorMessage ="El campo Título no puede ir vacio")]
         public string Title { get; set; }
-        [Required]
-        public int PublishedYear { get; set; }
 
+        [DisplayName("Año de publicación")]
+        [Required(ErrorMessage = "El campo Año de publicacion no puede ir vacio")]
+        public int? PublishedYear { get; set; }
 
         public Author Author { get; set; }
-        [Required]
-        public int AuthorId { get; set; }
+        [DisplayName("Autor")]
+        [Required(ErrorMessage = "Debe seleccionar una opcion")]
+        public int? AuthorId { get; set; }
 
 
         public Publisher Publisher { get; set; }
-        [Required]
-        public int PublisherId { get; set; }
+        [DisplayName("Editorial")]
+        [Required(ErrorMessage = "Debe seleccionar una opcion")]
+        public int? PublisherId { get; set; }
 
 
         public Category Category { get; set; }
-        [Required]
-        public int CategoryId { get; set; }
+        [DisplayName("Categoría")]
+        [Required(ErrorMessage = "Debe seleccionar una opcion")]
+        public int? CategoryId { get; set; }
 
 
         public DateTime Created { get; set; } = DateTime.Now;

@@ -3,6 +3,7 @@ using BooksManager.Models;
 using BooksManager.StoredProcedure;
 using BooksManager.Utils;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BooksManager.Controllers
@@ -41,9 +42,9 @@ namespace BooksManager.Controllers
 
         public IActionResult Create()
         {
-            ViewBag.AuthorId = GetAuthors();
-            ViewBag.PublisherId = GetPublishers();
-            ViewBag.CategoryId = GetCategories();
+            ViewBag.AuthorId = _Autores;
+            ViewBag.PublisherId = _Publishers;
+            ViewBag.CategoryId = _Categories;
             return View();
         }
 
@@ -51,6 +52,7 @@ namespace BooksManager.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Book book)
         {
+
             if (ModelState.IsValid)
             {
                 if(Convert.ToBoolean(spBook.create(book)))
@@ -58,6 +60,9 @@ namespace BooksManager.Controllers
                     return RedirectToAction(nameof(Index));
                 }
             }
+            ViewBag.AuthorId = _Autores;
+            ViewBag.PublisherId = _Publishers;
+            ViewBag.CategoryId = _Categories;
             return View(book);
         }
 
