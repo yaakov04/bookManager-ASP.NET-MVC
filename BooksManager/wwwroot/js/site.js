@@ -28,6 +28,21 @@ function ajaxRequest(btn=null){
 }
 
 
+$('.init-details').click(function () {
+    const container = this.parentElement;
+
+
+    const bookDetails = $(container).find('.details-content').clone();
+
+    bookDetails.removeClass('d-none');
+
+    const modalContent = $('#modal-details').find('.modal-content')
+    $(modalContent).children().remove();
+    $(modalContent).append(bookDetails);
+
+    $('#modal-details').modal('toggle')
+});
+
 $('.init-form-edit').click(function(){
   const container = this.parentElement;
 
@@ -117,19 +132,36 @@ function updateRow(modal, btn){
         name: $(row).find('td.name')[0] || null,
         lastname: $(row).find('td.lastname')[0] || null,
         country: $(row).find('td.country')[0] || null,
+
+
         title: $(row).find('td.title')[0] || null,
+        titleDetails: $(row).find('.details-content p.title')[0] || null,
+
         year: $(row).find('td.year')[0] || null,
+        yearDetails: $(row).find('.details-content p.year')[0] || null,
 
         author: $(row).find('td.author')[0] || null,
+        authorDetails: $(row).find('.details-content p.author')[0] || null,
+
         publisher: $(row).find('td.publisher')[0] || null,
+        publisherDetails: $(row).find('.details-content p.publisher')[0] || null,
+
         category: $(row).find('td.category')[0] || null,
+        categoryDetails: $(row).find('.details-content p.category')[0] || null,
+
     };
+
 
     if(td.name){td.name.innerHTML = newValues.name}
     if (td.lastname) { td.lastname.innerHTML = newValues.lastName }
     if (td.country) { td.country.innerHTML = newValues.country }
+
+
     if (td.title) { td.title.innerHTML = newValues.title }
+    if (td.titleDetails) { td.titleDetails.innerHTML = newValues.title }
+
     if (td.year) { td.year.innerHTML = newValues.year }
+    if (td.yearDetails) { td.yearDetails.innerHTML = newValues.year }
 
 
     
@@ -141,13 +173,20 @@ function updateRow(modal, btn){
         $.ajax(`${window.location.href}/GetAuthorNameOfABook/${id}`, {
             method: "GET",
             success: function (response) {
-                console.log(response)
-                td.author.innerHTML = response.result === 'ok' ? response.data : '';
+
+                if (response.result === 'ok') {
+                    if (td.author) { td.author.innerHTML = response.data }
+                    if (td.authorDetails) { td.authorDetails.innerHTML = response.data }
+                }
             }
         });
     }
     if (td.publisher) { td.publisher.innerHTML = newValues.publisher.innerText }
+    if (td.publisherDetails) { td.publisherDetails.innerHTML = newValues.publisher.innerText }
+
     if (td.category) { td.category.innerHTML = newValues.category.innerText }
+    if (td.categoryDetails) { td.categoryDetails.innerHTML = newValues.category.innerText }
+
 
     const form = btn.parentElement;
     const inputs ={

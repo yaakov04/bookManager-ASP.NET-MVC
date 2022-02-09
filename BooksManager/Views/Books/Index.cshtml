@@ -37,25 +37,25 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                            <tr>
-                                <td class="title">
-                                    @Html.DisplayFor(modelItem => item.title)
-                                </td>
-                                <td class="year">
-                                    @Html.DisplayFor(modelItem => item.year)
-                                </td>
-                                <td class="author">
-                                    @Html.DisplayFor(modelItem => item.author)
-                                </td>
-                                <td class="publisher">
-                                    @Html.DisplayFor(modelItem => item.publisher)
-                                </td>
-                                <td class="category">
-                                    @Html.DisplayFor(modelItem => item.category)
-                                </td>
-                                <td>
-                                    
-                                    <div class="d-inline">
+                                <tr>
+                                    <td class="title">
+                                        @Html.DisplayFor(modelItem => item.title)
+                                    </td>
+                                    <td class="year">
+                                        @Html.DisplayFor(modelItem => item.year)
+                                    </td>
+                                    <td class="author">
+                                        @Html.DisplayFor(modelItem => item.author)
+                                    </td>
+                                    <td class="publisher">
+                                        @Html.DisplayFor(modelItem => item.publisher)
+                                    </td>
+                                    <td class="category">
+                                        @Html.DisplayFor(modelItem => item.category)
+                                    </td>
+                                    <td>
+
+                                        <div class="d-inline">
                                             <button type="button" class="btn btn-primary mr-2 init-form-edit" data-toggle="modal" data-target="#modal-edit"><i class="fas fa-edit"></i></button>
                                             <div class="card card-primary d-none">
                                                 <div class="card-header">
@@ -116,8 +116,8 @@
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label class="control-label" >CategoryId</label>
-                                                            <select class="form-control" data-val="true" data-val-required="The CategoryId field is required."  name="CategoryId">
+                                                            <label class="control-label">CategoryId</label>
+                                                            <select class="form-control" data-val="true" data-val-required="The CategoryId field is required." name="CategoryId">
                                                                 @foreach (var category in ViewBag.CategoryId)
                                                                 {
                                                                     @if (category.Value == item.categoryId.ToString())
@@ -134,7 +134,7 @@
                                                         </div>
 
                                                     </div>
-                                                        <!-- /.card-body -->
+                                                    <!-- /.card-body -->
 
                                                     <div class="card-footer">
                                                         <button type="submit" class="btn btn-primary">Guardar</button>
@@ -143,14 +143,50 @@
                                             </div>
                                             <!-- /.card -->
                                         </div>
-                                    <a asp-action="Details" asp-route-id="@item.id">Details</a> 
-                                    <form class="d-inline" asp-action="Delete" data-action="Delete" data-id="@item.id">
-                                        <button class="btn btn-danger" type="submit">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
+                                        
+
+                                        <div class="d-inline">
+                                            <button type="button" class="btn btn-primary mr-2 init-details data-toggle="modal" data-target="#modal-details"> <i class="fas fa-info-circle"></i> </button>
+                                            
+                                            <div class="d-none details-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Detalles del libro</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    <p class="text-muted">Título del libro:</p>
+                                                    <p class="title">@item.title</p>
+
+                                                    <p class="text-muted">Año de publicación:</p>
+                                                    <p class="year">@item.year</p>
+
+                                                    <p class="text-muted"> Autor:</p>
+                                                    <p class="author">@item.author</p>
+
+                                                    <p class="text-muted">Editorial:</p>
+                                                    <p class="publisher">@item.publisher</p>
+
+                                                    <p class="text-muted">Categoría:</p>
+                                                    <p class="category">@item.category</p>
+
+                                                </div>
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <form class="d-inline" asp-action="Delete" data-action="Delete" data-id="@item.id">
+                                            <button class="btn btn-danger" type="submit">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
                             }
 
                         </tbody>
@@ -184,6 +220,19 @@
     <!-- /.row -->
 </div>
 <!-- /.container-fluid -->
+
+
+<div class="modal fade" id="modal-details">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 
 <partial name="_modalEdit" />
 
